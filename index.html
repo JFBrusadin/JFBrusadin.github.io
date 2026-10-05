@@ -1,11 +1,718 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <title>Portfolio - Juan Francisco Brusadin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juan Francisco Brusadin | Junior Data Analyst Portfolio</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdfa',
+              400: '#2dd4bf',
+              500: '#14b8a6',
+              600: '#0d9488',
+              900: '#134e4a',
+            },
+            surface: {
+              dark: '#090d16',
+              card: '#111726',
+              border: '#1f293d',
+              highlight: '#1e293b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Technical Grid Pattern Background */
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    .glow-cyan {
+      box-shadow: 0 0 45px -10px rgba(20, 184, 166, 0.25);
+    }
+    .code-scroll::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    .code-scroll::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+  </style>
 </head>
-<body>
-  <h1>Hola mundo, este es mi portfolio</h1>
-  <p>Próximamente proyectos de análisis de datos.</p>
+
+<body class="bg-surface-dark text-slate-200 font-sans antialiased bg-grid-pattern min-h-screen selection:bg-brand-500 selection:text-white">
+
+  <!-- Header / Navigation Bar -->
+  <nav class="sticky top-0 z-50 backdrop-blur-md bg-surface-dark/85 border-b border-surface-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="#inicio" class="flex items-center gap-2 group">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-teal-400 flex items-center justify-center text-white font-mono font-bold text-sm shadow-md group-hover:scale-105 transition-transform">
+            JB
+          </div>
+          <span class="font-mono text-sm tracking-tight text-slate-100 font-semibold group-hover:text-brand-400 transition-colors">
+            jfbrusadin<span class="text-brand-400">.analytics</span>
+          </span>
+        </a>
+
+        <!-- Desktop Links -->
+        <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
+          <a href="#inicio" class="hover:text-brand-400 transition-colors">Inicio</a>
+          <a href="#sobre-mi" class="hover:text-brand-400 transition-colors">Sobre Mí</a>
+          <a href="#habilidades" class="hover:text-brand-400 transition-colors">Habilidades</a>
+          <a href="#caso-estudio" class="text-brand-400 hover:text-brand-300 transition-colors flex items-center gap-1.5">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+            </span>
+            Caso Destacado
+          </a>
+          <a href="#proyectos" class="hover:text-brand-400 transition-colors">Proyectos</a>
+          <a href="#contacto" class="px-4 py-2 rounded-lg bg-brand-500/10 border border-brand-500/30 text-brand-400 hover:bg-brand-500 hover:text-white transition-all text-xs font-semibold">
+            Contactar
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <div class="md:hidden flex items-center">
+          <button id="mobileMenuBtn" aria-label="Abrir menú" class="p-2 text-slate-400 hover:text-white focus:outline-none">
+            <i class="fa-solid fa-bars text-lg"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenu" class="hidden md:hidden px-4 pt-2 pb-4 bg-surface-card border-b border-surface-border space-y-2 text-sm font-medium">
+      <a href="#inicio" class="block px-3 py-2 rounded-md hover:bg-surface-highlight text-slate-200">Inicio</a>
+      <a href="#sobre-mi" class="block px-3 py-2 rounded-md hover:bg-surface-highlight text-slate-200">Sobre Mí</a>
+      <a href="#habilidades" class="block px-3 py-2 rounded-md hover:bg-surface-highlight text-slate-200">Habilidades</a>
+      <a href="#caso-estudio" class="block px-3 py-2 rounded-md hover:bg-surface-highlight text-brand-400">Caso Destacado: CO₂</a>
+      <a href="#proyectos" class="block px-3 py-2 rounded-md hover:bg-surface-highlight text-slate-200">Proyectos</a>
+      <a href="#contacto" class="block px-3 py-2 rounded-md bg-brand-500 text-white font-semibold text-center">Contactar</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="inicio" class="relative pt-16 pb-20 md:pt-28 md:pb-32 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-medium mb-6">
+          <i class="fa-solid fa-circle-dot text-[10px] animate-pulse"></i>
+          Disponible para posiciones de Junior Data Analyst / BI
+        </div>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+          Transformando datos brutos en <span class="bg-gradient-to-r from-brand-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">respuestas de negocio</span> accionables.
+        </h1>
+        <p class="text-lg text-slate-400 leading-relaxed mb-8">
+          Soy <span class="text-slate-100 font-semibold">Juan Francisco Brusadin</span>. Me especializo en modelado relacional, consultas SQL complejas (CTEs, Window Functions) y visualizaciones analíticas con enfoque en rigor cuantitativo y storytelling.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="#caso-estudio" class="px-6 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-semibold text-sm transition-all shadow-lg shadow-brand-500/20 flex items-center gap-2">
+            <i class="fa-solid fa-chart-line"></i> Explorar Caso de Estudio
+          </a>
+          <a href="#contacto" class="px-6 py-3 rounded-xl bg-surface-card hover:bg-surface-highlight border border-surface-border text-slate-200 font-semibold text-sm transition-all flex items-center gap-2">
+            <i class="fa-regular fa-envelope"></i> Conectar
+          </a>
+          <a href="https://github.com/JFBrusadin" target="_blank" rel="noopener noreferrer" class="px-4 py-3 rounded-xl bg-surface-card hover:bg-surface-highlight border border-surface-border text-slate-400 hover:text-white transition-all text-sm" title="Perfil de GitHub">
+            <i class="fa-brands fa-github text-base"></i>
+          </a>
+        </div>
+
+        <!-- Metrics bar -->
+        <div class="mt-14 pt-8 border-t border-surface-border/80 grid grid-cols-3 gap-4">
+          <div>
+            <div class="text-2xl md:text-3xl font-extrabold text-white font-mono">100%</div>
+            <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">SQL reproducible</div>
+          </div>
+          <div>
+            <div class="text-2xl md:text-3xl font-extrabold text-brand-400 font-mono">OWID + INEGI</div>
+            <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Fuentes Oficiales</div>
+          </div>
+          <div>
+            <div class="text-2xl md:text-3xl font-extrabold text-white font-mono">&lt; 2 seg</div>
+            <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Consultas Indexadas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Featured Case Study: CO2 Global Emissions -->
+  <section id="caso-estudio" class="py-20 bg-surface-card/60 border-y border-surface-border relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div class="max-w-2xl">
+          <div class="text-brand-400 font-mono text-xs uppercase tracking-widest font-semibold mb-2">Proyecto Principal • Data Pipeline & Insights</div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+            Emisiones Globales de CO₂: La Paradoja entre Volumen y Responsabilidad Histórica
+          </h2>
+          <p class="text-slate-400 text-sm mt-3 leading-relaxed">
+            Un análisis integral basado en datos abiertos del <em>Global Carbon Project (Our World in Data)</em>. Desglosamos la aparente dicotomía entre las emisiones territoriales brutas actuales y la deuda de carbono acumulada por habitante.
+          </p>
+        </div>
+        <div class="mt-4 md:mt-0 flex gap-2">
+          <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300 border border-slate-700">
+            <i class="fa-solid fa-database mr-1.5 text-brand-400"></i> PostgreSQL
+          </span>
+          <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300 border border-slate-700">
+            <i class="fa-solid fa-chart-simple mr-1.5 text-teal-400"></i> Chart.js
+          </span>
+        </div>
+      </div>
+
+      <!-- Live Interactive Visualizer -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-14">
+        
+        <!-- Chart Container Card (8 cols) -->
+        <div class="lg:col-span-8 bg-surface-card p-5 sm:p-6 rounded-2xl border border-surface-border shadow-xl">
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div>
+              <h3 id="chartTitle" class="text-base font-semibold text-white">
+                Emisiones Anuales Brutas de CO₂ (Millones de Toneladas)
+              </h3>
+              <p class="text-xs text-slate-400">Comparativa histórica de bloques económicos clave (1960 - Actualidad)</p>
+            </div>
+            
+            <!-- Metric Toggle Buttons -->
+            <div class="flex items-center bg-surface-dark p-1 rounded-xl border border-surface-border text-xs">
+              <button id="btnTotal" onclick="switchMetric('total')" class="px-3 py-1.5 rounded-lg bg-brand-500 text-white font-medium transition-all shadow-sm">
+                Emisiones Totales
+              </button>
+              <button id="btnPerCapita" onclick="switchMetric('perCapita')" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white font-medium transition-all">
+                Por Cápita (Ton)
+              </button>
+              <button id="btnCumulative" onclick="switchMetric('cumulative')" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white font-medium transition-all">
+                Histórica Acumulada
+              </button>
+            </div>
+          </div>
+
+          <!-- Canvas for Chart.js -->
+          <div class="relative w-full h-[340px] sm:h-[400px]">
+            <canvas id="emissionsChart"></canvas>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-surface-border flex items-center justify-between text-xs text-slate-400">
+            <span class="flex items-center gap-1.5">
+              <i class="fa-solid fa-circle-info text-brand-400"></i> Fuente de datos: Our World in Data (CO₂ Dataset)
+            </span>
+            <span class="font-mono text-slate-500">Muestra agregada representativa</span>
+          </div>
+        </div>
+
+        <!-- Metric Insights & KPI Cards (4 cols) -->
+        <div class="lg:col-span-4 space-y-4">
+          
+          <div class="bg-surface-card p-5 rounded-2xl border border-surface-border hover:border-brand-500/40 transition-colors">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono uppercase text-slate-400">Punto de Quiebre</span>
+              <span class="text-xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono">Año 2006</span>
+            </div>
+            <div class="text-xl font-bold text-white mb-1">China supera a EE. UU.</div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              El auge fabril asiático y la matriz basada en carbón impulsaron las emisiones brutas anuales de China más allá de las norteamericanas, duplicándolas hacia la década actual.
+            </p>
+          </div>
+
+          <div class="bg-surface-card p-5 rounded-2xl border border-surface-border hover:border-brand-500/40 transition-colors">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono uppercase text-slate-400">Deuda Climática Histórica</span>
+              <span class="text-xs px-2 py-0.5 rounded bg-brand-500/10 text-brand-400 border border-brand-500/20 font-mono">1750 - Hoy</span>
+            </div>
+            <div class="text-xl font-bold text-white mb-1">Occidente: ~45% acumulado</div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Al analizar el stock de carbono que aún persiste en la atmósfera, Estados Unidos y la Unión Europea concentran la mayor cuota acumulada generada desde la Revolución Industrial.
+            </p>
+          </div>
+
+          <div class="bg-surface-card p-5 rounded-2xl border border-surface-border hover:border-brand-500/40 transition-colors">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono uppercase text-slate-400">Huella Individual (2022)</span>
+              <span class="text-xs px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-mono">Per Cápita</span>
+            </div>
+            <div class="text-xl font-bold text-white mb-1">14.9 vs 8.0 Toneladas</div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Un ciudadano estadounidense promedio produce casi el doble de CO₂ anual que uno en China, y más de 8 veces el de un país de ingresos medios como Argentina o México.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Interactive SQL Inspector -->
+      <div class="bg-surface-card rounded-2xl border border-surface-border overflow-hidden shadow-2xl">
+        <div class="flex flex-wrap items-center justify-between px-6 py-4 border-b border-surface-border bg-surface-dark/60 gap-4">
+          <div class="flex items-center gap-3">
+            <div class="flex gap-1.5">
+              <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+            </div>
+            <span class="text-xs font-mono text-slate-400 font-medium ml-2">
+              analysis_co2_historical_rankings.sql
+            </span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button onclick="copySQLSnippet()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-card hover:bg-surface-highlight border border-surface-border text-xs text-slate-300 font-mono hover:text-white transition-all">
+              <i id="copyIcon" class="fa-regular fa-copy"></i>
+              <span id="copyText">Copiar SQL</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="p-6 overflow-x-auto code-scroll bg-surface-dark/95">
+          <pre class="font-mono text-xs text-slate-300 leading-relaxed"><code id="sqlCodeContent"><span class="text-teal-400 font-semibold">WITH</span> annual_aggregates <span class="text-teal-400 font-semibold">AS</span> (
+    <span class="text-slate-500">-- Filtrado y extracción de métricas principales normalizadas</span>
+    <span class="text-teal-400 font-semibold">SELECT</span> 
+        country,
+        year,
+        co2 <span class="text-teal-400 font-semibold">AS</span> territorial_co2_mt,
+        co2_per_capita,
+        cumulative_co2,
+        <span class="text-slate-500">-- Tasa de crecimiento interanual con función de ventana LAG()</span>
+        <span class="text-indigo-400">LAG</span>(co2, 1) <span class="text-indigo-400">OVER</span> (<span class="text-indigo-400">PARTITION BY</span> country <span class="text-indigo-400">ORDER BY</span> year) <span class="text-teal-400 font-semibold">AS</span> prev_co2
+    <span class="text-teal-400 font-semibold">FROM</span> raw_owid_emissions
+    <span class="text-teal-400 font-semibold">WHERE</span> iso_code <span class="text-teal-400 font-semibold">IS NOT NULL</span> <span class="text-slate-500">-- Excluye agregados continentales brutos</span>
+),
+debt_metrics <span class="text-teal-400 font-semibold">AS</span> (
+    <span class="text-teal-400 font-semibold">SELECT</span> 
+        country,
+        year,
+        territorial_co2_mt,
+        co2_per_capita,
+        cumulative_co2,
+        <span class="text-indigo-400">ROUND</span>(
+            ((territorial_co2_mt - prev_co2) / <span class="text-indigo-400">NULLIF</span>(prev_co2, 0)) * 100, 
+            2
+        ) <span class="text-teal-400 font-semibold">AS</span> yoy_emission_change_pct,
+        <span class="text-slate-500">-- Porcentaje de cuota histórica frente al acumulado mundial en el año de corte</span>
+        <span class="text-indigo-400">DENSE_RANK</span>() <span class="text-indigo-400">OVER</span> (<span class="text-indigo-400">PARTITION BY</span> year <span class="text-indigo-400">ORDER BY</span> cumulative_co2 <span class="text-indigo-400">DESC</span>) <span class="text-teal-400 font-semibold">AS</span> historical_rank
+    <span class="text-teal-400 font-semibold">FROM</span> annual_aggregates
+)
+<span class="text-teal-400 font-semibold">SELECT</span> 
+    country,
+    year,
+    territorial_co2_mt,
+    co2_per_capita,
+    cumulative_co2,
+    yoy_emission_change_pct,
+    historical_rank
+<span class="text-teal-400 font-semibold">FROM</span> debt_metrics
+<span class="text-teal-400 font-semibold">WHERE</span> year = 2023 <span class="text-teal-400 font-semibold">AND</span> historical_rank &lt;= 10
+<span class="text-teal-400 font-semibold">ORDER BY</span> historical_rank <span class="text-indigo-400">ASC</span>;</code></pre>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Technical Skills Section -->
+  <section id="habilidades" class="py-20 border-b border-surface-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="text-brand-400 font-mono text-xs uppercase tracking-widest font-semibold mb-2">Stack Técnico & Competencias</div>
+        <h2 class="text-3xl font-bold text-white tracking-tight">Habilidades Enfocadas en el Negocio</h2>
+        <p class="text-slate-400 text-sm mt-3">Herramientas orientadas a responder preguntas complejas sin fricciones arquitectónicas.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Skill 1 -->
+        <div class="bg-surface-card p-6 rounded-2xl border border-surface-border relative group hover:border-brand-500/50 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-database"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">SQL Avanzado</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+            Manejo fluido de CTEs recursivos, Window Functions (<code class="text-teal-400 font-mono">DENSE_RANK, LAG, LEAD</code>), índices B-Tree y normalización de esquemas analíticos.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">PostgreSQL</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">MySQL</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">SQLite</span>
+          </div>
+        </div>
+
+        <!-- Skill 2 -->
+        <div class="bg-surface-card p-6 rounded-2xl border border-surface-border relative group hover:border-brand-500/50 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-chart-pie"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Visualización & BI</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+            Diseño de paneles orientados a la toma de decisiones con foco en claridad visual, jerarquía tipográfica y eliminación de métricas vanidosas.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Power BI</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Tableau</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">DAX</span>
+          </div>
+        </div>
+
+        <!-- Skill 3 -->
+        <div class="bg-surface-card p-6 rounded-2xl border border-surface-border relative group hover:border-brand-500/50 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-brands fa-python"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Python & Data Wrangling</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+            Limpieza automatizada, validación de esquemas, tratamiento de valores nulos o atípicos y extracción de datos vía APIs o scrapers.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Pandas</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">NumPy</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Matplotlib</span>
+          </div>
+        </div>
+
+        <!-- Skill 4 -->
+        <div class="bg-surface-card p-6 rounded-2xl border border-surface-border relative group hover:border-brand-500/50 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-brands fa-git-alt"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Control de Versiones</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+            Estructuración de proyectos reproducibles, documentación rigurosa en Markdown y control de cambios en repositorios colaborativos.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Git</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">GitHub Pages</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">CI/CD</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Projects / Pipeline Section -->
+  <section id="proyectos" class="py-20 border-b border-surface-border bg-surface-dark/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div>
+          <div class="text-brand-400 font-mono text-xs uppercase tracking-widest font-semibold mb-2">Roadmap & Casos en Curso</div>
+          <h2 class="text-3xl font-bold text-white tracking-tight">Otros Proyectos Analíticos</h2>
+        </div>
+        <p class="text-xs text-slate-400 mt-2 md:mt-0 font-mono">Investigaciones cuantitativas en modelado</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Project 2 Card -->
+        <div class="bg-surface-card rounded-2xl border border-surface-border p-6 hover:border-slate-700 transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                En desarrollo activo
+              </span>
+              <span class="text-xs text-slate-500 font-mono">INEGI + PROFECO</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">
+              Mercado Automotor Mexicano: Tasa de Retención de Valor y Tiempos de Postventa
+            </h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-6">
+              Estudio comparativo sobre el costo total de propiedad (TCO) y depreciación acelerada en marcas entrantes frente a fabricantes japoneses y alemanes consolidados.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-surface-border text-xs">
+            <span class="text-slate-400 font-mono">Python / Scrapy / SQL Server</span>
+            <span class="text-brand-400 font-medium">Próximamente</span>
+          </div>
+        </div>
+
+        <!-- Project 3 Card -->
+        <div class="bg-surface-card rounded-2xl border border-surface-border p-6 hover:border-slate-700 transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-teal-500/10 text-teal-400 border border-teal-500/20">
+                Planificado
+              </span>
+              <span class="text-xs text-slate-500 font-mono">E-Commerce Dataset</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">
+              Análisis de Cohortes y Abandono (Churn) en Clientes B2C
+            </h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-6">
+              Segmentación RFM (Recencia, Frecuencia, Valor Monetario) y cálculo de Lifetime Value (LTV) para optimizar estrategias de retención comercial con SQL y Power BI.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-surface-border text-xs">
+            <span class="text-slate-400 font-mono">Window Functions / DAX / Power BI</span>
+            <span class="text-brand-400 font-medium">Próximamente</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Social Footer Section -->
+  <section id="contacto" class="py-20 bg-surface-dark relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-medium mb-6">
+        <i class="fa-regular fa-paper-plane"></i> Charlemos de Datos
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+        ¿Tenés una oportunidad o un desafío técnico?
+      </h2>
+      <p class="text-slate-400 text-sm max-w-xl mx-auto mb-10 leading-relaxed">
+        Estoy activamente buscando sumarme a un equipo donde pueda aportar rigor técnico en SQL, visualización clara y resolución analítica.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto mb-12">
+        <a href="mailto:juanf.brusadin@example.com" class="p-4 rounded-xl bg-surface-card border border-surface-border hover:border-brand-500/50 hover:bg-surface-highlight transition-all group">
+          <i class="fa-regular fa-envelope text-xl text-brand-400 mb-2 block group-hover:scale-110 transition-transform"></i>
+          <span class="text-xs text-slate-400 block">E-mail</span>
+          <span class="text-sm font-semibold text-white">Contactar</span>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl bg-surface-card border border-surface-border hover:border-brand-500/50 hover:bg-surface-highlight transition-all group">
+          <i class="fa-brands fa-linkedin-in text-xl text-blue-400 mb-2 block group-hover:scale-110 transition-transform"></i>
+          <span class="text-xs text-slate-400 block">Red Profesional</span>
+          <span class="text-sm font-semibold text-white">LinkedIn</span>
+        </a>
+        <a href="https://github.com/JFBrusadin" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl bg-surface-card border border-surface-border hover:border-brand-500/50 hover:bg-surface-highlight transition-all group">
+          <i class="fa-brands fa-github text-xl text-slate-200 mb-2 block group-hover:scale-110 transition-transform"></i>
+          <span class="text-xs text-slate-400 block">Repositorios</span>
+          <span class="text-sm font-semibold text-white">GitHub</span>
+        </a>
+      </div>
+
+      <div class="pt-8 border-t border-surface-border/60 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <span>© 2026 Juan Francisco Brusadin. Todos los derechos reservados.</span>
+        <span class="font-mono">Construido con HTML semántico, Tailwind & Chart.js</span>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Mobile navigation drawer toggle
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // Copy SQL Snippet Functionality
+    function copySQLSnippet() {
+      const codeElement = document.getElementById('sqlCodeContent');
+      const textToCopy = codeElement.innerText;
+
+      // Fallback-safe clipboard copy
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = textToCopy;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      try {
+        document.execCommand('copy');
+        const copyText = document.getElementById('copyText');
+        const copyIcon = document.getElementById('copyIcon');
+        copyText.textContent = '¡Copiado!';
+        copyIcon.className = 'fa-solid fa-check text-teal-400';
+        setTimeout(() => {
+          copyText.textContent = 'Copiar SQL';
+          copyIcon.className = 'fa-regular fa-copy';
+        }, 2200);
+      } catch (err) {
+        console.error('Error al copiar:', err);
+      }
+      document.body.removeChild(tempTextArea);
+    }
+
+    // Chart.js Data Configuration
+    const yearsLabels = ['1970', '1980', '1990', '2000', '2005', '2010', '2015', '2020', '2023'];
+
+    const metricDatasets = {
+      total: {
+        title: 'Emisiones Anuales Brutas de CO₂ (Millones de Toneladas)',
+        unit: 'Mt CO₂',
+        china: [777, 1466, 2424, 3350, 5849, 8780, 9716, 10940, 11400],
+        usa: [4320, 4750, 5080, 5770, 5740, 5390, 4990, 4530, 4750],
+        eu: [3650, 4020, 3810, 3620, 3680, 3310, 2900, 2480, 2520],
+        row: [6100, 7800, 9900, 11800, 13900, 15800, 17500, 18200, 18800]
+      },
+      perCapita: {
+        title: 'Emisiones de CO₂ Por Habitante (Toneladas anuales per cápita)',
+        unit: 'Ton / hab',
+        china: [0.95, 1.48, 2.12, 2.65, 4.45, 6.48, 6.95, 7.78, 8.05],
+        usa: [21.1, 20.8, 20.2, 20.5, 19.4, 17.4, 15.5, 13.7, 14.9],
+        eu: [9.1, 9.7, 8.9, 8.2, 8.1, 7.2, 6.3, 5.4, 5.6],
+        row: [2.3, 2.4, 2.5, 2.6, 2.8, 2.9, 3.0, 3.0, 3.1]
+      },
+      cumulative: {
+        title: 'Responsabilidad Histórica Acumulada (Gigatoneladas acumuladas)',
+        unit: 'Gt CO₂',
+        china: [12, 23, 42, 70, 104, 158, 226, 295, 332],
+        usa: [98, 145, 195, 250, 278, 307, 333, 357, 372],
+        eu: [140, 179, 218, 255, 273, 290, 305, 319, 327],
+        row: [110, 160, 230, 320, 380, 460, 550, 640, 690]
+      }
+    };
+
+    let activeChart = null;
+
+    function renderEmissionsChart(metricKey) {
+      const metric = metricDatasets[metricKey];
+      document.getElementById('chartTitle').textContent = metric.title;
+
+      const ctx = document.getElementById('emissionsChart').getContext('2d');
+
+      if (activeChart) {
+        activeChart.destroy();
+      }
+
+      activeChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: yearsLabels,
+          datasets: [
+            {
+              label: 'China',
+              data: metric.china,
+              borderColor: '#ef4444',
+              backgroundColor: 'rgba(239, 68, 68, 0.1)',
+              tension: 0.35,
+              borderWidth: 2.5,
+              pointRadius: 3,
+              pointHoverRadius: 6
+            },
+            {
+              label: 'Estados Unidos',
+              data: metric.usa,
+              borderColor: '#38bdf8',
+              backgroundColor: 'rgba(56, 189, 248, 0.1)',
+              tension: 0.35,
+              borderWidth: 2.5,
+              pointRadius: 3,
+              pointHoverRadius: 6
+            },
+            {
+              label: 'Unión Europea (27)',
+              data: metric.eu,
+              borderColor: '#10b981',
+              backgroundColor: 'rgba(16, 185, 129, 0.1)',
+              tension: 0.35,
+              borderWidth: 2.5,
+              pointRadius: 3,
+              pointHoverRadius: 6
+            },
+            {
+              label: 'Resto del Mundo',
+              data: metric.row,
+              borderColor: '#94a3b8',
+              backgroundColor: 'transparent',
+              borderDash: [5, 5],
+              tension: 0.35,
+              borderWidth: 1.5,
+              pointRadius: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: 'index',
+            intersect: false
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: '#94a3b8',
+                font: { family: '"Plus Jakarta Sans"', size: 11 }
+              }
+            },
+            tooltip: {
+              backgroundColor: '#0f172a',
+              titleColor: '#f8fafc',
+              bodyColor: '#cbd5e1',
+              borderColor: '#334155',
+              borderWidth: 1,
+              padding: 10,
+              boxPadding: 4,
+              callbacks: {
+                label: function(context) {
+                  return ` ${context.dataset.label}: ${context.parsed.y.toLocaleString()} ${metric.unit}`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255, 255, 255, 0.05)' },
+              ticks: { color: '#64748b', font: { family: '"JetBrains Mono"', size: 10 } }
+            },
+            y: {
+              grid: { color: 'rgba(255, 255, 255, 0.05)' },
+              ticks: { 
+                color: '#64748b', 
+                font: { family: '"JetBrains Mono"', size: 10 },
+                callback: function(val) { return val.toLocaleString(); }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function switchMetric(type) {
+      const btnTotal = document.getElementById('btnTotal');
+      const btnPerCapita = document.getElementById('btnPerCapita');
+      const btnCumulative = document.getElementById('btnCumulative');
+
+      const buttons = [btnTotal, btnPerCapita, btnCumulative];
+      buttons.forEach(btn => {
+        btn.className = 'px-3 py-1.5 rounded-lg text-slate-400 hover:text-white font-medium transition-all';
+      });
+
+      if (type === 'total') {
+        btnTotal.className = 'px-3 py-1.5 rounded-lg bg-brand-500 text-white font-medium transition-all shadow-sm';
+      } else if (type === 'perCapita') {
+        btnPerCapita.className = 'px-3 py-1.5 rounded-lg bg-brand-500 text-white font-medium transition-all shadow-sm';
+      } else if (type === 'cumulative') {
+        btnCumulative.className = 'px-3 py-1.5 rounded-lg bg-brand-500 text-white font-medium transition-all shadow-sm';
+      }
+
+      renderEmissionsChart(type);
+    }
+
+    // Initialize default chart on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderEmissionsChart('total');
+    });
+  </script>
 </body>
 </html>
